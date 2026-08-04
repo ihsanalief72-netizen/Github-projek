@@ -173,6 +173,165 @@ body {
   line-height: 1.6;
 }
 
+/* Menu Section*/
+.menu {
+  padding: 5rem 7% 1.4rem;
+  text-align: center;
+}
+
+.menu h2 {
+  font-size: 2.2rem;
+  margin-bottom: 2rem;
+  color: #fff;
+}
+
+.menu .row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.menu-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.menu-card h3 {
+  font-size: 1.2rem;
+  margin: 0.8rem 0 0.4rem;
+  color: #fff;
+}
+
+.menu-card .price {
+  color: #ccc;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.menu-card .cta-btn {
+  display: inline-block;
+  background-color: #e67e22; /* Warna oranye */
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Modal Pop-up Styling */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 99999;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  text-align: left;
+  animation: popIn 0.3s ease-out;
+}
+
+.modal-content h2 {
+  font-size: 1.3rem;
+  color: #111;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.modal-content .form-group {
+  margin-bottom: 15px;
+}
+
+.modal-content label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.modal-content #btnHitung {
+  width: 100%;
+  padding: 12px;
+  background-color: #6b4d38; /* Menyesuaikan warna tombol CTA Anda */
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.modal-content .total-box {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #e8f5e9;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.modal-content .total-box span {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.modal-content .total-box h3 {
+  font-size: 1.4rem;
+  color: #2e7d32;
+  margin: 5px 0 0 0;
+}
+
+.btn-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #888;
+  cursor: pointer;
+}
+
+.btn-close:hover {
+  color: #000;
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
 /* Media Queries */
 
 /* Laptop */
