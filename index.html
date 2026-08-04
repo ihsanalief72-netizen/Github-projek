@@ -47,21 +47,63 @@
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur,
           facilis!
         </p>
-        <a href="#" class="cta">Booking sekarang</a>
+        <a href="#" class="cta" onclick="bukaKalkulator(event)"
+          >Booking sekarang</a
+        >
       </main>
     </section>
     <!-- Hero Section end-->
+
+    <!-- Modal Kalkulator -->
+    <div id="modalKalkulator" class="modal-overlay">
+      <div class="modal-content">
+        <span class="btn-close" onclick="tutupKalkulator()">&times;</span>
+
+        <h2>Hitung Estimasi Sewa Lapangan</h2>
+
+        <div class="form-group">
+          <label for="hargaJam">Harga Sewa per Jam (Rp)</label>
+          <input type="number" id="hargaJam" value="50000" />
+        </div>
+
+        <div class="form-group">
+          <label for="durasi">Durasi Bermain (Jam)</label>
+          <input type="number" id="durasi" value="2" />
+        </div>
+
+        <button type="button" id="btnHitung" onclick="hitungTotal()">
+          Hitung Total Biaya
+        </button>
+
+        <div class="total-box">
+          <span>Total Pembayaran:</span>
+          <h3 id="totalBayar">Rp 100.000</h3>
+        </div>
+      </div>
+    </div>
 
     <!--about section start-->
     <section id="about" class="about">
       <h2>Tentang kami</h2>
 
       <div class="row">
-       <div class="about-img">
-        
-
-       </div>
-    </section> 
+        <div class="about-img">
+          <img src="img/Tentang-kami.jpg" alt="Tentang kami" />
+        </div>
+        <div class="content">
+          <h3>cerita kami</h3>
+          <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Similique
+            dignissimos in quia neque porro veniam.
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi
+            aperiam facere omnis corrupti quo facilis ducimus vel iure incidunt
+            possimus!
+          </p>
+        </div>
+      </div>
+    </section>
 
     <!--about section end-->
 
