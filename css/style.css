@@ -221,6 +221,90 @@ body {
   font-weight: bold;
 }
 
+/* ==========================================
+   STYLING CARD & BUTTON LAPANGAN FAVORITE
+   ========================================== */
+
+/* Container Utama */
+.favorite-section {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+/* Grid Layout 3 Kolom */
+.court-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+/* Card Container */
+.court-card {
+  background-color: #000;
+  border: 1px solid #222;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+
+/* Gambar Seragam (Crop Pas) */
+.court-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Judul (Min-height agar harga & tombol selalu sejajar) */
+.court-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 14px 0 8px;
+  min-height: 44px;
+  display: -webkit-box;
+  line-clamp: 2; /* <-- Tambahkan baris ini */
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Harga */
+.court-price {
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-bottom: 16px;
+}
+
+/* Tombol Booking */
+.btn-booking {
+  background-color: #f37021; /* Orange */
+  color: #ffffff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  width: 100%;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
+}
+
+.btn-booking:hover {
+  background-color: #d95d12;
+}
+
+.btn-booking:active {
+  transform: scale(0.98);
+}
+
 /* Modal Pop-up Styling */
 .modal-overlay {
   display: none;
