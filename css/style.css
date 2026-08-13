@@ -149,71 +149,128 @@ body {
 }
 
 .about .row .about-img {
-  flex: 1 1 45rem;
+  flex: 1 1 40rem;
 }
 
 .about .row .about-img {
-  width: 100%;
+  width: 90%;
 }
 
 /* Tentang kami */
-.about .row .content {
-  flex: 1 1 35rem;
-  padding: 0 1rem;
+/* --- SECTION TENTANG KAMI --- */
+.about {
+  padding: 7rem 7% 4rem; /* Jarak atas disesuaikan agar tidak tertutup navbar */
+  text-align: center;
+  background-color: #000; /* Menyesuaikan tema gelap kamu */
+  color: #fff;
 }
 
-.about .row .content h3 {
-  font-size: 1.8rem;
+/* Judul Utama Section */
+.about h2 {
+  font-size: 2.2rem;
+  margin-bottom: 2.5rem;
+  text-transform: capitalize;
+}
+
+.about h2 span {
+  color: #694f34; /* Warna hijau aksen badminton (opsional) */
+}
+
+/* Container pembungkus gambar & teks */
+.about .row {
+  display: flex;
+  flex-wrap: wrap; /* Supaya responsif di layar HP */
+  align-items: center; /* Meratakan posisi gambar & teks secara vertikal */
+  justify-content: center;
+  gap: 3rem; /* Jarak antara gambar dan teks */
+  max-width: 1100px;
+  margin: 0 auto; /* Memastikan konten persis di tengah */
+}
+
+/* Bagian Gambar (Kiri) */
+.about .about-img {
+  flex: 1 1 400px; /* Lebar fleksibel minimal 400px */
+}
+
+.about .about-img img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover; /* Mencegah gambar terlihat gepeng */
+  border-radius: 8px; /* Sudut melengkung halus */
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.05);
+}
+
+/* Bagian Teks (Kanan) */
+.about .content {
+  flex: 1 1 400px;
+  text-align: left; /* Teks rata kiri agar mudah dibaca */
+}
+
+.about .content h3 {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  text-transform: capitalize;
+  color: #fff;
+}
+
+.about .content p {
+  font-size: 1rem;
+  line-height: 1.7; /* Jarak antar baris kalimat */
+  color: #ccc; /* Warna abu-abu terang agar tidak terlalu menyolok */
   margin-bottom: 1rem;
 }
 
-.about .row .content p {
-  margin-bottom: 0.8rem;
-  font-size: 1.4rem;
-  line-height: 1.6;
-}
-
 /* Menu Section*/
+/* 1. Memberi jarak atas agar heading lebih turun ke bawah */
 .menu {
-  padding: 5rem 7% 1.4rem;
+  padding-top: 8rem;
   text-align: center;
 }
 
 .menu h2 {
   font-size: 2.2rem;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   color: #fff;
 }
 
+/* 2. Pembungkus Card */
 .menu .row {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1.5rem;
+  align-items: stretch;
+  gap: 2rem;
+}
+
+/* 3. Menyamakan ukuran Menu Card */
+.menu-card {
+  background-color: #000;
+  border-radius: 8px;
+  padding: 1.2rem;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
 }
 
 .menu-card img {
   width: 100%;
-  height: 150px;
+  height: 180px;
   object-fit: cover;
   border-radius: 5px;
 }
 
 .menu-card h3 {
-  font-size: 1.2rem;
-  margin: 0.8rem 0 0.4rem;
+  font-size: 1.1rem;
+  margin: 1rem 0 0.5rem;
   color: #fff;
-}
-
-.menu-card .price {
-  color: #ccc;
-  font-size: 1rem;
-  margin-bottom: 1rem;
+  min-height: 2.8rem;
 }
 
 .menu-card .cta-btn {
   display: inline-block;
-  background-color: #e67e22; /* Warna oranye */
+  background-color: #e67e22;
   color: #fff;
   padding: 0.6rem 1.2rem;
   border-radius: 5px;
@@ -282,19 +339,24 @@ body {
 }
 
 /* Tombol Booking */
+/* Styling Tombol Detail & Booking */
 .btn-booking {
-  background-color: #f37021; /* Orange */
-  color: #ffffff;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  cursor: pointer;
+  display: block;
   width: 100%;
-  transition:
-    background-color 0.2s ease,
-    transform 0.1s ease;
+  background-color: #e67e22; /* Warna oranye */
+  color: #ffffff;
+  padding: 0.75rem 1rem;
+  border: none; /* Menghilangkan garis tepi baku button */
+  border-radius: 6px; /* Membuat sudut tombol tumpul/melengkung */
+  font-weight: bold;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 1rem;
+}
+
+.btn-booking:hover {
+  background-color: #d35400; /* Warna oranye lebih gelap saat diarahkan kursor */
 }
 
 .btn-booking:hover {
@@ -403,6 +465,26 @@ body {
 
 .btn-close:hover {
   color: #000;
+}
+
+/* Styling Tombol Konfirmasi Pesanan */
+.btn-konfirmasi {
+  display: block;
+  width: 100%;
+  background-color: #27ae60; /* Warna hijau */
+  color: #ffffff;
+  padding: 0.8rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn-konfirmasi:hover {
+  background-color: #219150; /* Hijau lebih gelap saat kursor menempel */
 }
 
 @keyframes popIn {
