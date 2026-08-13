@@ -47,59 +47,70 @@
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur,
           facilis!
         </p>
-        <a href="#" class="cta" onclick="bukaKalkulator(event)"
-          >Booking sekarang</a
-        >
+        <a href="#" class="cta">Booking sekarang</a>
       </main>
     </section>
     <!-- Hero Section end-->
 
     <!-- Modal Kalkulator -->
     <div id="modalKalkulator" class="modal-overlay">
-      <div class="modal-content">
-        <span class="btn-close" onclick="tutupKalkulator()">&times;</span>
+  <div class="modal-content">
+    <span class="btn-close" onclick="tutupKalkulator()">&times;</span>
 
-        <h2>Hitung Estimasi Sewa Lapangan</h2>
+    <h2>Hitung Estimasi Sewa Lapangan</h2>
 
-        <div class="form-group">
-          <label for="hargaJam">Harga Sewa per Jam (Rp)</label>
-          <input type="number" id="hargaJam" value="50000" />
-        </div>
+    <!-- Input Harga -->
+    <div class="input-group">
+      <label for="hargaJam">Harga Sewa per Jam (Rp)</label>
+      <input type="number" id="hargaJam" value="0" readonly />
+    </div>
 
-        <div class="form-group">
-          <label for="durasi">Durasi Bermain (Jam)</label>
-          <input type="number" id="durasi" value="2" />
-        </div>
+    <!-- Input Durasi -->
+    <div class="input-group">
+      <label for="durasi">Durasi Bermain (Jam)</label>
+      <input type="number" id="durasi" value="2" min="1" oninput="hitungTotal()" />
+    </div>
 
-        <button type="button" id="btnHitung" onclick="hitungTotal()">
-          Hitung Total Biaya
-        </button>
+    <!-- Tombol Hitung -->
+    <button type="button" id="btnHitung" onclick="hitungTotal()">
+      Hitung Total Biaya
+    </button>
 
-        <div class="total-box">
-          <span>Total Pembayaran:</span>
-          <h3 id="totalBayar">Rp 100.000</h3>
-        </div>
-      </div>
+    <!-- Kotak Total Pembayaran -->
+    <div class="total-box">
+      <span>Total Pembayaran:</span>
+      <h3 id="totalBayar">Rp 0</h3>
+    </div>
+
+    <!-- Tombol Konfirmasi Pesanan (Ditaruh di Paling Bawah) -->
+    <button type="button" id="btnKonfirmasi" onclick="konfirmasiPesanan()" class="btn-konfirmasi">
+      ✅ Konfirmasi Pesanan
+    </button>
+  </div>
+</div>   
     </div>
 
     <!--about section start-->
     <section id="about" class="about">
-      <h2>Tentang kami</h2>
+      <h2>Tentang <span>Kami</span></h2>
 
       <div class="row">
+        <!-- Gambar (Sebelah Kiri) -->
         <div class="about-img">
-          <img src="img/Tentang-kami.jpg" alt="Tentang kami" />
+          <img src="img/header-bg.jpg" alt="Foto Lapangan Badminton" />
         </div>
+
+        <!-- Teks (Sebelah Kanan) -->
         <div class="content">
-          <h3>cerita kami</h3>
+          <h3>Cerita Kami</h3>
           <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Similique
-            dignissimos in quia neque porro veniam.
+            MainBadminton hadir untuk memudahkan para pecinta bulutangkis dalam
+            menemukan dan menyewa lapangan favorit dengan cepat dan tanpa ribet.
           </p>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi
-            aperiam facere omnis corrupti quo facilis ducimus vel iure incidunt
-            possimus!
+            Kami berkomitmen menyediakan informasi jadwal yang akurat serta
+            fasilitas terbaik untuk mendukung aktivitas olahraga kamu setiap
+            hari.
           </p>
         </div>
       </div>
@@ -110,33 +121,35 @@
     <!-- Menu section -->
     <section id="menu" class="menu">
       <h2>Menu Lapangan Favorite</h2>
-
-      <!--Kartu lapangan 1-->
       <div class="row">
+        <!--Kartu lapangan 1-->
         <div class="menu-card">
           <img src="img/lapangan-1.jpeg" alt="Lapangan 1" />
           <h3>Amman academy court - Vinyl</h3>
-          <p class="price">Rp 100.000 / Jam</p>
-          <a href="#kontak" class="cta-btn">Detail & Booking</a>
+          <p class="price1">Rp 100.000 / Jam</p>
+          <button class="btn-booking" data-price="100000">
+            Detail & Booking
+          </button>
         </div>
 
         <!--Kartu lapangan 2-->
-        <div class="row">
-          <div class="menu-card">
-            <img src="img/lapangan-2.jpeg" alt="Lapangan 2" />
-            <h3>Multipurpose Hall - Lantai Polyurethane (PU)</h3>
-            <p class="price">Rp 55.000 / Jam</p>
-            <a href="#kontak" class="cta-btn">Detail & Booking</a>
-          </div>
+        <div class="menu-card">
+          <img src="img/lapangan-2.jpeg" alt="Lapangan 2" />
+          <h3>Multipurpose Hall - Lantai Polyurethane (PU)</h3>
+          <p class="price2">Rp 55.000 / Jam</p>
+          <button class="btn-booking" data-price="55000">
+            Detail & Booking
+          </button>
+        </div>
 
-          <!--Kartu lapangan 2-->
-        <div class="row">
-          <div class="menu-card">
-            <img src="img/lapangan-3.jpeg" alt="Lapangan 3" />
-            <h3>Tunaz Sport - Vinyl (PU)</h3>
-            <p class="price">Rp 130.000 / Jam</p>
-            <a href="#kontak" class="cta-btn">Detail & Booking</a>
-          </div>
+        <!--Kartu lapangan 2-->
+        <div class="menu-card">
+          <img src="img/lapangan-3.jpeg" alt="Lapangan 3" />
+          <h3>Tunaz Sport - Vinyl (PU)</h3>
+          <p class="price3">Rp 130.000 / Jam</p>
+          <button class="btn-booking" data-price="130000">
+            Detail & Booking
+          </button>
         </div>
       </div>
     </section>
