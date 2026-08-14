@@ -1,6 +1,8 @@
 <!doctype html>
-<html>
+<html lang="id">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MainBadminton</title>
 
     <!-- Fonts -->
@@ -11,7 +13,7 @@
       rel="stylesheet"
     />
 
-    <!-- Feathers icons -->
+    <!-- Feather Icons -->
     <script src="https://unpkg.com/feather-icons"></script>
 
     <!-- My style -->
@@ -21,7 +23,7 @@
   <body>
     <!-- Navbar start -->
     <nav class="navbar">
-      <a href="#" class="navbar-logo">MainBadminton</a>
+      <a href="#" class="navbar-logo">Main<span>Badminton</span></a>
 
       <div class="navbar-nav">
         <a href="#home">Home</a>
@@ -32,12 +34,41 @@
 
       <div class="navbar-extra">
         <a href="#" id="search"><i data-feather="search"></i></a>
-        <a href="#" id="shopping-cart"><i data-feather="shopping-cart"></i></a>
+        <a
+          href="javascript:void(0);"
+          id="shopping-cart-button"
+          class="cart-icon-wrapper"
+          onclick="toggleCart()"
+        >
+          <i data-feather="shopping-cart"></i>
+          <span id="cart-count">0</span>
+        </a>
         <a href="#" id="booking-menu"><i data-feather="menu"></i></a>
       </div>
     </nav>
-
     <!-- Navbar end -->
+
+    <!-- Panel Keranjang -->
+    <div class="shopping-cart">
+      <div class="cart-header">
+        <h3>Keranjang Kamu</h3>
+        <span class="close-cart" onclick="toggleCart()">&times;</span>
+      </div>
+
+      <div class="cart-items" id="cart-items-container">
+        <p class="empty-cart-msg">Keranjang kamu masih kosong.</p>
+      </div>
+
+      <div class="cart-footer">
+        <div class="total-price">
+          <span>Total:</span>
+          <strong id="cart-grand-total">Rp 0</strong>
+        </div>
+        <button class="btn-checkout" onclick="alert('Lanjut ke Pembayaran!')">
+          Lanjutkan Pembayaran
+        </button>
+      </div>
+    </div>
 
     <!-- Hero Section start-->
     <section class="hero" id="home">
@@ -47,50 +78,12 @@
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur,
           facilis!
         </p>
-        <a href="#" class="cta">Booking sekarang</a>
+        <a href="#menu" class="cta">Booking sekarang</a>
       </main>
     </section>
     <!-- Hero Section end-->
 
-    <!-- Modal Kalkulator -->
-    <div id="modalKalkulator" class="modal-overlay">
-  <div class="modal-content">
-    <span class="btn-close" onclick="tutupKalkulator()">&times;</span>
-
-    <h2>Hitung Estimasi Sewa Lapangan</h2>
-
-    <!-- Input Harga -->
-    <div class="input-group">
-      <label for="hargaJam">Harga Sewa per Jam (Rp)</label>
-      <input type="number" id="hargaJam" value="0" readonly />
-    </div>
-
-    <!-- Input Durasi -->
-    <div class="input-group">
-      <label for="durasi">Durasi Bermain (Jam)</label>
-      <input type="number" id="durasi" value="2" min="1" oninput="hitungTotal()" />
-    </div>
-
-    <!-- Tombol Hitung -->
-    <button type="button" id="btnHitung" onclick="hitungTotal()">
-      Hitung Total Biaya
-    </button>
-
-    <!-- Kotak Total Pembayaran -->
-    <div class="total-box">
-      <span>Total Pembayaran:</span>
-      <h3 id="totalBayar">Rp 0</h3>
-    </div>
-
-    <!-- Tombol Konfirmasi Pesanan (Ditaruh di Paling Bawah) -->
-    <button type="button" id="btnKonfirmasi" onclick="konfirmasiPesanan()" class="btn-konfirmasi">
-      ✅ Konfirmasi Pesanan
-    </button>
-  </div>
-</div>   
-    </div>
-
-    <!--about section start-->
+    <!-- About Section start -->
     <section id="about" class="about">
       <h2>Tentang <span>Kami</span></h2>
 
@@ -104,8 +97,10 @@
         <div class="content">
           <h3>Cerita Kami</h3>
           <p>
-            MainBadminton hadir untuk memudahkan para pecinta bulutangkis dalam
-            menemukan dan menyewa lapangan favorit dengan cepat dan tanpa ribet.
+            Web ini tercipta bukan hanya sekedar latihan membuat web saja tetapi
+            MainBadminton hadir dari hobi dan untuk memudahkan para pecinta
+            bulutangkis dalam menemukan dan menyewa lapangan favorit dengan
+            cepat dan tanpa ribet.
           </p>
           <p>
             Kami berkomitmen menyediakan informasi jadwal yang akurat serta
@@ -115,51 +110,247 @@
         </div>
       </div>
     </section>
+    <!-- About Section end -->
 
-    <!--about section end-->
-
-    <!-- Menu section -->
+    <!-- Menu Section start -->
     <section id="menu" class="menu">
-      <h2>Menu Lapangan Favorite</h2>
+      <h2>Menu Lapangan <span>Favorite</span></h2>
       <div class="row">
-        <!--Kartu lapangan 1-->
+        <!-- Kartu Lapangan 1 -->
         <div class="menu-card">
           <img src="img/lapangan-1.jpeg" alt="Lapangan 1" />
           <h3>Amman academy court - Vinyl</h3>
           <p class="price1">Rp 100.000 / Jam</p>
-          <button class="btn-booking" data-price="100000">
+          <button class="btn-detail" onclick="bukaKalkulator('amman')">
             Detail & Booking
           </button>
         </div>
 
-        <!--Kartu lapangan 2-->
+        <!-- Kartu Lapangan 2 -->
         <div class="menu-card">
           <img src="img/lapangan-2.jpeg" alt="Lapangan 2" />
           <h3>Multipurpose Hall - Lantai Polyurethane (PU)</h3>
           <p class="price2">Rp 55.000 / Jam</p>
-          <button class="btn-booking" data-price="55000">
+          <button class="btn-detail" onclick="bukaKalkulator('multipurpose')">
             Detail & Booking
           </button>
         </div>
 
-        <!--Kartu lapangan 2-->
+        <!-- Kartu Lapangan 3 -->
         <div class="menu-card">
           <img src="img/lapangan-3.jpeg" alt="Lapangan 3" />
-          <h3>Tunaz Sport - Vinyl (PU)</h3>
+          <h3>Tunaz Sport - Vinyl</h3>
           <p class="price3">Rp 130.000 / Jam</p>
-          <button class="btn-booking" data-price="130000">
+          <button class="btn-detail" onclick="bukaKalkulator('tunaz')">
             Detail & Booking
           </button>
         </div>
       </div>
     </section>
+    <!-- Menu Section end -->
 
-    <!-- Feathers icons -->
+    <!-- Modal Search Pop-up start -->
+    <div id="modalSearch" class="search-modal-overlay">
+      <div class="search-modal-content">
+        <span class="btn-close-search" onclick="tutupSearch()">&times;</span>
+
+        <div class="search-header">
+          <h3>Cari Lapangan</h3>
+          <p>
+            Ketik nama lapangan atau jenis lantai (contoh:
+            <i>Vinyl, PU, Amman</i>)
+          </p>
+        </div>
+
+        <div class="search-input-box">
+          <i data-feather="search" class="search-icon"></i>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Cari lapangan favoritmu..."
+            oninput="liveSearch()"
+            autocomplete="off"
+          />
+        </div>
+
+        <!-- Wadah Hasil Pencarian -->
+        <div id="searchResults" class="search-results-list">
+          <p class="search-placeholder">Mulai mengetik untuk mencari...</p>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Search Pop-up end -->
+
+    <!-- Modal Detail & Kalkulator Lapangan -->
+    <div id="modalKalkulator" class="modal-overlay">
+      <div class="modal-content">
+        <span class="btn-close" onclick="tutupKalkulator()">&times;</span>
+
+        <!-- Gambar & Info Detail Lapangan -->
+        <div class="modal-info-header">
+          <img id="modalGambar" src="" alt="Gambar Lapangan" />
+          <h2 id="modalNamaLapangan">Nama Lapangan</h2>
+          <p id="modalDeskripsi" class="modal-deskripsi"></p>
+
+          <div class="modal-specs">
+            <div class="spec-item">
+              <strong>Jenis Lantai:</strong> <span id="modalLantai">-</span>
+            </div>
+            <div class="spec-item">
+              <strong>Fasilitas:</strong> <span id="modalFasilitas">-</span>
+            </div>
+          </div>
+        </div>
+
+        <hr class="modal-divider" />
+
+        <!-- Form Kalkulator Booking -->
+        <div class="input-group">
+          <label for="hargaJam">Harga Sewa per Jam (Rp)</label>
+          <input type="number" id="hargaJam" value="0" readonly />
+        </div>
+
+        <div class="input-group">
+          <label for="durasi">Durasi Bermain (Jam)</label>
+          <input
+            type="number"
+            id="durasi"
+            value="2"
+            min="1"
+            oninput="hitungTotal()"
+          />
+        </div>
+
+        <div class="total-box">
+          <span>Total Pembayaran:</span>
+          <h3 id="totalBayar">Rp 0</h3>
+        </div>
+
+        <div class="modal-actions">
+          <button
+            type="button"
+            class="btn-keranjang"
+            onclick="tambahKeKeranjang()"
+          >
+            + Keranjang
+          </button>
+          <button
+            type="button"
+            id="btnKonfirmasi"
+            onclick="konfirmasiPesanan()"
+            class="btn-konfirmasi"
+          >
+            Konfirmasi Pesanan
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Section start -->
+    <section id="contact" class="contact-card-section">
+      <div class="contact-card-overlay"></div>
+      <div class="contact-card-container">
+        <span class="contact-brand">MAINBADMINTON</span>
+        <h2 class="contact-title">Contact <span>US NOW</span></h2>
+
+        <div class="contact-pills-list">
+          <div class="contact-pill">
+            <i data-feather="phone"></i>
+            <span>+62 812-3456-7890</span>
+          </div>
+          <div class="contact-pill">
+            <i data-feather="mail"></i>
+            <span>info@mainbadminton.com</span>
+          </div>
+          <div class="contact-pill">
+            <i data-feather="globe"></i>
+            <span>www.mainbadminton.com</span>
+          </div>
+          <div class="contact-pill">
+            <i data-feather="map-pin"></i>
+            <span>Jl. Badak No. 123, Komplek GOR</span>
+          </div>
+        </div>
+
+        <p class="contact-footer-text">@mainbadminton</p>
+      </div>
+    </section>
+    <!-- Contact Section end -->
+
+    <!-- Footer Section start -->
+    <footer class="footer">
+      <!-- CTA Banner Atas -->
+      <div class="footer-cta">
+        <div class="cta-content">
+          <h3>Siap Smash Hari Ini? 🏸</h3>
+          <p>Amankan slot lapangan favoritmu sekarang sebelum kehabisan!</p>
+        </div>
+        <a href="#menu" class="cta">Booking Sekarang</a>
+      </div>
+
+      <!-- Konten Utama Footer -->
+      <div class="footer-container">
+        <!-- Kolom 1: Brand & Sosial Media -->
+        <div class="footer-col">
+          <a href="#" class="footer-logo">Main<span>Badminton</span></a>
+          <p class="footer-desc">
+            Platform penyewaan lapangan badminton terlengkap dan terpercaya.
+            Kemudahan booking lapangan favoritmu dalam satu genggaman.
+          </p>
+          <div class="footer-socials">
+            <a href="#"><i data-feather="instagram"></i></a>
+            <a href="#"><i data-feather="facebook"></i></a>
+            <a href="#"><i data-feather="youtube"></i></a>
+          </div>
+        </div>
+
+        <!-- Kolom 2: Navigasi Cepat -->
+        <div class="footer-col">
+          <h4>Navigasi</h4>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">Tentang Kami</a></li>
+            <li><a href="#menu">Menu Lapangan</a></li>
+            <li><a href="#contact">Kontak</a></li>
+          </ul>
+        </div>
+
+        <!-- Kolom 3: Jam Operasional GOR -->
+        <div class="footer-col">
+          <h4>Jam Operasional</h4>
+          <p class="hours-info">
+            <strong>Senin - Jumat:</strong><br />08.00 - 23.00 WITA
+          </p>
+          <p class="hours-info">
+            <strong>Sabtu - Minggu:</strong><br />07.00 - 24.00 WITA
+          </p>
+        </div>
+
+        <!-- Kolom 4: Layanan & Informasi -->
+        <div class="footer-col">
+          <h4>Bantuan</h4>
+          <ul>
+            <li><a href="#">Cara Booking</a></li>
+            <li><a href="#">Syarat & Ketentuan</a></li>
+            <li><a href="#">Kebijakan Pembatalan</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Copyright Bawah -->
+      <div class="footer-bottom">
+        <p>&copy; 2026 MainBadminton. All rights reserved.</p>
+      </div>
+    </footer>
+    <!-- Footer Section end -->
+
+    <!-- Activation Feather Icons -->
     <script>
       feather.replace();
     </script>
 
-    <!--My Javascript-->
+    <!-- My Javascript -->
     <script src="js/script.js"></script>
   </body>
 </html>
