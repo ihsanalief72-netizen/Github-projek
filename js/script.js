@@ -10,7 +10,7 @@ const dataDetailLapangan = {
     harga: 100000,
     gambar: "img/lapangan-1.jpeg",
     lantai: "Vinyl Interlock Premium (Standar BWF)",
-    fasilitas: "AC, Kantin, Wi-Fi, Ruang Ganti, Bench Pemain",
+    fasilitas: "AC, Wi-Fi, Ruang Ganti, Bench Pemain",
     deskripsi:
       "Lapangan vinyl berkualitas tinggi dengan peredam kejut yang aman untuk lutut dan persendian. Sangat cocok untuk pertandingan seru maupun latihan rutin.",
   },
@@ -28,7 +28,7 @@ const dataDetailLapangan = {
     harga: 130000,
     gambar: "img/lapangan-3.jpeg",
     lantai: "Vinyl Pro Tournament",
-    fasilitas: "Full AC, Shower Air Hangat, VIP Lounge, Sound System",
+    fasilitas: "2 lantai, Shower Air Hangat, Kantin, Musholla, Parkir luas",
     deskripsi:
       "Fasilitas kelas privat premium dengan karpet vinyl tournament grade. Penerangan bebas silau untuk pengalaman bermain badminton maksimal.",
   },
@@ -347,4 +347,119 @@ function liveSearch() {
 function pilihHasilSearch(keyLapangan) {
   tutupSearch();
   bukaKalkulator(keyLapangan);
+}
+
+// 1. Data Dummy Lapangan
+const databaseLapangan = [
+  { id: "lap1", nama: "Lapangan 1 (Vinyl)", hargaPerJam: 50000 },
+  { id: "lap2", nama: "Lapangan 2 (Karpet BWF)", hargaPerJam: 75000 },
+  { id: "lap3", nama: "Lapangan 3 (Kayu)", hargaPerJam: 60000 },
+];
+
+// 2. Seleksi Elemen DOM
+const selectLapangan = document.querySelector("#pilih-lapangan");
+const inputJam = document.querySelector("#durasi-jam");
+const displayTotal = document.querySelector("#total-harga");
+
+// 3. Fungsi Live Update menggunakan Arrow Function
+const updateKalkulator = () => {
+  const selectedId = selectLapangan?.value;
+  const jam = Number(inputJam?.value) || 0;
+
+  // Cari data lapangan berdasarkan ID menggunakan .find()
+  const lapangan = databaseLapangan.find((item) => item.id === selectedId);
+
+  // Jika data tidak valid atau jam < 1
+  if (!lapangan || jam <= 0) {
+    if (displayTotal) displayTotal.textContent = "Rp0";
+    return;
+  }
+
+  // Hitung total biaya
+  const total = lapangan.hargaPerJam * jam;
+
+  // Tampilkan hasil terformat di DOM
+  if (displayTotal) {
+    displayTotal.textContent = `Rp${total.toLocaleString("id-ID")}`;
+  }
+};
+
+// 4. Event Listener (Trigger saat ada perubahan input)
+selectLapangan?.addEventListener("change", updateKalkulator);
+inputJam?.addEventListener("input", updateKalkulator);
+
+// Jalankan sekali saat awal halaman dimuat
+updateKalkulator();
+
+// ==========================================
+// FUNGSI CHECKOUT & PEMBAYARAN
+// ==========================================
+function bukaCheckout() {
+  if (dataKeranjang.length === 0) {
+    alert("Keranjang kamu masih kosong. Silakan pilih lapangan dulu!");
+    return;
+  }
+
+  const grandTotalText = document.getElementById("cart-grand-total")?.innerText || "Rp 0";
+  const totalCheckoutElem = document.getElementById("checkout-total-price");
+  if (totalCheckoutElem) {
+    totalCheckoutElem.innerText = grandTotalText;
+  }
+
+  // Sembunyikan panel keranjang & buka modal pembayaran
+  toggleCart();
+  const modalCheckout = document.getElementById("modalCheckout");
+  if (modalCheckout) {
+    modalCheckout.style.display = "flex";
+  }
+}
+
+function tutupCheckout() {
+  const modalCheckout = document.getElementById("modalCheckout");
+  if (modalCheckout) {
+    modalCheckout.style.display = "none";
+  }
+}
+
+function pilihMetode(metode) {
+  document.getElementById("qrisDetail").style.display = metode === "qris" ? "block" : "none";
+  document.getElementById("bankDetail").style.display = metode === "bank" ? "block" : "none";
+  document.getElementById("ewalletDetail").style.display = metode === "ewallet" ? "block" : "none";
+}
+
+function prosesPembayaran(event) {
+  event.preventDefault();
+  alert("Terima kasih! Pembayaran sedang diproses. Bukti reservasi akan dikirimkan.");
+
+  // Reset keranjang
+  dataKeranjang = [];
+  const badgeCart = document.getElementById("cart-count");
+  if (badgeCart) badgeCart.innerText = "0";
+
+  renderCart();
+  tutupCheckout();
+}
+
+// ==========================================
+// DIRECT CHECKOUT DARI MODAL DETAIL LAPANGAN
+// ==========================================
+function konfirmasiLangsung() {
+  // 1. Ambil total harga yang terhitung di modal kalkulator
+  const totalHargaElem = document.getElementById("totalBayar");
+  const totalHargaText = totalHargaElem ? totalHargaElem.innerText : "Rp 0";
+
+  // 2. Oper nilai total tersebut ke modal pembayaran
+  const checkoutTotalElem = document.getElementById("checkout-total-price");
+  if (checkoutTotalElem) {
+    checkoutTotalElem.innerText = totalHargaText;
+  }
+
+  // 3. Tutup modal kalkulator detail
+  tutupKalkulator();
+
+  // 4. Buka modal pembayaran
+  const modalCheckout = document.getElementById("modalCheckout");
+  if (modalCheckout) {
+    modalCheckout.style.display = "flex";
+  }
 }

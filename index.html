@@ -18,6 +18,300 @@
 
     <!-- My style -->
     <link rel="stylesheet" href="css/style.css" />
+
+    <!-- Modern Navbar / Login / Logout -->
+    <style>
+      .navbar {
+        background: rgba(3, 12, 10, 0.92) !important;
+        border-bottom: 1px solid rgba(201, 161, 90, 0.16) !important;
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        box-shadow: 0 8px 30px rgba(0,0,0,.16);
+      }
+
+      .navbar-logo {
+        display: inline-flex !important;
+        align-items: center;
+        gap: 7px;
+        letter-spacing: -.5px;
+      }
+
+      .navbar-logo::before {
+        content: "🏸";
+        font-size: 22px;
+        filter: saturate(.75);
+      }
+
+      .navbar-logo span {
+        color: #c9a15a !important;
+      }
+
+      .navbar-nav a {
+        position: relative;
+        transition: color .25s ease;
+      }
+
+      .navbar-nav a::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: -10px;
+        width: 0;
+        height: 2px;
+        border-radius: 10px;
+        background: #c9a15a;
+        transform: translateX(-50%);
+        transition: width .25s ease;
+      }
+
+      .navbar-nav a:hover,
+      .navbar-nav a.active {
+        color: #c9a15a !important;
+      }
+
+      .navbar-nav a:hover::after,
+      .navbar-nav a.active::after {
+        width: 28px;
+      }
+
+      .navbar-extra {
+        display: flex !important;
+        align-items: center;
+        gap: 9px;
+      }
+
+      .navbar-extra > a:not(.auth-link),
+      .navbar-extra #search,
+      .navbar-extra #shopping-cart-button,
+      .navbar-extra #booking-menu {
+        width: 42px;
+        height: 42px;
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(255,255,255,.12);
+        border-radius: 50%;
+        transition: .25s ease;
+      }
+
+      .navbar-extra > a:hover {
+        color: #c9a15a !important;
+        border-color: rgba(201,161,90,.55);
+        background: rgba(201,161,90,.07);
+        transform: translateY(-1px);
+      }
+
+      #auth-button-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        margin-left: 5px;
+      }
+
+      .auth-login-btn {
+        height: 42px;
+        padding: 0 22px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #c9a15a;
+        border-radius: 24px;
+        background: transparent;
+        color: #c9a15a;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: .25s ease;
+      }
+
+      .auth-login-btn:hover {
+        background: #c9a15a;
+        color: #111;
+        box-shadow: 0 7px 20px rgba(201,161,90,.18);
+      }
+
+      .profile-trigger {
+        height: 42px;
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        padding: 0 7px 0 5px;
+        border: 1px solid rgba(201,161,90,.72);
+        border-radius: 24px;
+        background: rgba(255,255,255,.025);
+        color: #fff;
+        cursor: pointer;
+        font: inherit;
+        transition: .25s ease;
+      }
+
+      .profile-trigger:hover,
+      .profile-trigger.open {
+        background: rgba(201,161,90,.10);
+        border-color: #c9a15a;
+      }
+
+      .profile-avatar {
+        width: 31px;
+        height: 31px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: linear-gradient(145deg,#c9a15a,#8f6b35);
+        color: #102019;
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .profile-name {
+        max-width: 95px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .profile-chevron {
+        width: 15px;
+        height: 15px;
+        transition: transform .2s ease;
+      }
+
+      .profile-trigger.open .profile-chevron {
+        transform: rotate(180deg);
+      }
+
+      .profile-dropdown {
+        position: absolute;
+        right: 0;
+        top: calc(100% + 12px);
+        width: 245px;
+        padding: 12px;
+        border: 1px solid rgba(201,161,90,.30);
+        border-radius: 16px;
+        background: rgba(4,18,14,.97);
+        box-shadow: 0 20px 50px rgba(0,0,0,.38);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-8px) scale(.98);
+        transform-origin: top right;
+        transition: .2s ease;
+        z-index: 1000;
+      }
+
+      .profile-dropdown.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0) scale(1);
+      }
+
+      .profile-head {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 7px 8px 12px;
+        margin-bottom: 7px;
+        border-bottom: 1px solid rgba(255,255,255,.10);
+      }
+
+      .profile-head .profile-avatar {
+        flex: 0 0 36px;
+        width: 36px;
+        height: 36px;
+      }
+
+      .profile-head-text {
+        min-width: 0;
+      }
+
+      .profile-head-text strong,
+      .profile-head-text small {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .profile-head-text strong {
+        color: #fff;
+        font-size: 13px;
+      }
+
+      .profile-head-text small {
+        margin-top: 2px;
+        color: #899691;
+        font-size: 11px;
+      }
+
+      .profile-menu-item {
+        width: 100%;
+        min-height: 39px;
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 8px 10px;
+        border: 0;
+        border-radius: 10px;
+        background: transparent;
+        color: #d7ddda;
+        text-decoration: none;
+        font-size: 13px;
+        text-align: left;
+        cursor: pointer;
+        transition: .2s ease;
+      }
+
+      .profile-menu-item svg {
+        width: 16px;
+        height: 16px;
+        color: #b9c0bd;
+      }
+
+      .profile-menu-item:hover {
+        background: rgba(201,161,90,.09);
+        color: #c9a15a;
+      }
+
+      .profile-menu-item:hover svg {
+        color: #c9a15a;
+      }
+
+      .profile-menu-divider {
+        height: 1px;
+        margin: 7px 5px;
+        background: rgba(255,255,255,.10);
+      }
+
+      .profile-logout {
+        color: #d9b66e;
+      }
+
+      .profile-logout:hover {
+        background: rgba(201,161,90,.12);
+        color: #e3bf78;
+      }
+
+      .profile-logout:disabled {
+        opacity: .55;
+        cursor: wait;
+      }
+
+      @media (max-width: 700px) {
+        .profile-name {
+          display: none;
+        }
+        .profile-trigger {
+          padding-right: 5px;
+        }
+        .profile-dropdown {
+          right: -8px;
+        }
+      }
+    </style>
   </head>
 
   <body>
@@ -43,6 +337,9 @@
           <i data-feather="shopping-cart"></i>
           <span id="cart-count">0</span>
         </a>
+        <!-- Login / Profile -->
+        <div id="auth-button-container"></div>
+
         <a href="#" id="booking-menu"><i data-feather="menu"></i></a>
       </div>
     </nav>
@@ -64,8 +361,9 @@
           <span>Total:</span>
           <strong id="cart-grand-total">Rp 0</strong>
         </div>
-        <button class="btn-checkout" onclick="alert('Lanjut ke Pembayaran!')">
-          Lanjutkan Pembayaran
+        <button class="btn-checkout" onclick="bukaCheckout()">
+  Lanjutkan Pembayaran
+</button>
         </button>
       </div>
     </div>
@@ -175,7 +473,7 @@
 
         <!-- Wadah Hasil Pencarian -->
         <div id="searchResults" class="search-results-list">
-          <p class="search-placeholder">Mulai mengetik untuk mencari...</p>
+          <p class="search-placeholder">Mulai mengetik untuk mencari...jodoh</p>
         </div>
       </div>
     </div>
@@ -234,14 +532,9 @@
           >
             + Keranjang
           </button>
-          <button
-            type="button"
-            id="btnKonfirmasi"
-            onclick="konfirmasiPesanan()"
-            class="btn-konfirmasi"
-          >
-            Konfirmasi Pesanan
-          </button>
+          <button type="button" class="btn-konfirmasi" onclick="konfirmasiLangsung()">
+  Konfirmasi Pesanan
+</button>
         </div>
       </div>
     </div>
@@ -266,11 +559,6 @@
             <i data-feather="globe"></i>
             <span>www.mainbadminton.com</span>
           </div>
-          <div class="contact-pill">
-            <i data-feather="map-pin"></i>
-            <span>Jl. Badak No. 123, Komplek GOR</span>
-          </div>
-        </div>
 
         <p class="contact-footer-text">@mainbadminton</p>
       </div>
@@ -348,6 +636,286 @@
     <!-- Activation Feather Icons -->
     <script>
       feather.replace();
+    </script>
+
+    <!-- ========================================== -->
+    <!-- MODAL POP-UP KALKULATOR (SESUAI JS KAMU)   -->
+    <!-- ========================================== -->
+    <div class="modal-overlay" id="modalKalkulator">
+      <div class="modal-content">
+        <!-- Tombol Silang Tutup Modal -->
+        <span class="btn-close" onclick="tutupKalkulator()">&times;</span>
+
+        <!-- Detail Lapangan (Otomatis Diisi via JS) -->
+        <h2 id="modalNamaLapangan">Detail Lapangan</h2>
+        <img
+          id="modalGambar"
+          src=""
+          alt="Gambar Lapangan"
+          style="width: 100%; border-radius: 8px; margin-bottom: 1rem"
+        />
+
+        <p id="modalDeskripsi" style="color: #666; margin-bottom: 0.5rem"></p>
+        <p style="font-size: 0.9rem; margin-bottom: 0.3rem">
+          <strong>Lantai:</strong> <span id="modalLantai"></span>
+        </p>
+        <p style="font-size: 0.9rem; margin-bottom: 1rem">
+          <strong>Fasilitas:</strong> <span id="modalFasilitas"></span>
+        </p>
+
+        <!-- Hidden Input untuk menyimpan harga per jam -->
+        <input type="hidden" id="hargaJam" value="0" />
+
+        <!-- Input Durasi Jam -->
+        <div class="input-group">
+          <label for="durasi">Durasi Sewa (Jam):</label>
+          <input
+            type="number"
+            id="durasi"
+            value="2"
+            min="1"
+            oninput="hitungTotal()"
+          />
+        </div>
+
+        <!-- Tempat Menampilkan Total Harga -->
+        <div class="total-box">
+          <span>Total Pembayaran:</span>
+          <h3 id="totalBayar">Rp0</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Checkout / Pembayaran start -->
+    <div id="modalCheckout" class="payment-modal-overlay">
+      <div class="payment-modal-content">
+        <span class="btn-close-payment" onclick="tutupCheckout()">&times;</span>
+
+        <div class="payment-header">
+          <h3>Pilih Metode Pembayaran</h3>
+          <p>Selesaikan pembayaran untuk mengamankan slot lapanganmu.</p>
+        </div>
+
+        <div class="payment-summary-box">
+          <span>Total yang Harus Dibayar:</span>
+          <h2 id="checkout-total-price">Rp 0</h2>
+        </div>
+
+        <form id="paymentForm" onsubmit="prosesPembayaran(event)">
+          <div class="payment-methods">
+            <!-- Pilihan QRIS -->
+            <label class="payment-option">
+              <input type="radio" name="payment_method" value="qris" checked onchange="pilihMetode('qris')" />
+              <div class="payment-card-content">
+                <span class="method-title">QRIS (Scan All Wallet)</span>
+                <span class="method-desc">Gopay, OVO, Dana, ShopeePay, BCA Mobile</span>
+              </div>
+            </label>
+
+            <!-- Pilihan Transfer Bank -->
+            <label class="payment-option">
+              <input type="radio" name="payment_method" value="bank" onchange="pilihMetode('bank')" />
+              <div class="payment-card-content">
+                <span class="method-title">Transfer Bank (Virtual Account)</span>
+                <span class="method-desc">BCA, Mandiri, BNI, BRI</span>
+              </div>
+            </label>
+
+            <!-- Pilihan E-Wallet -->
+            <label class="payment-option">
+              <input type="radio" name="payment_method" value="ewallet" onchange="pilihMetode('ewallet')" />
+              <div class="payment-card-content">
+                <span class="method-title">E-Wallet Direct</span>
+                <span class="method-desc">DANA / GoPay</span>
+              </div>
+            </label>
+          </div>
+
+          <!-- Detail Informasi Metode (Dinamis) -->
+          <div id="paymentDetails" class="payment-details-box">
+            <!-- QRIS View Default -->
+            <div id="qrisDetail" class="method-detail">
+              <p>Scan kode QRIS di bawah ini melalui aplikasi pembayaran favoritmu:</p>
+              <div class="qris-img-placeholder">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=MAINBADMINTON-PAYMENT" alt="QRIS Code" />
+              </div>
+            </div>
+
+            <!-- Bank Detail -->
+            <div id="bankDetail" class="method-detail" style="display: none;">
+              <p>Transfer ke Rekening Resmi MainBadminton:</p>
+              <div class="bank-info">
+                <strong>BCA Virtual Account:</strong>
+                <div class="va-number">88012 3456 7890 12</div>
+                <small>a.n. MainBadminton Official</small>
+              </div>
+            </div>
+
+            <!-- E-Wallet Detail -->
+            <div id="ewalletDetail" class="method-detail" style="display: none;">
+              <p>Masukkan Nomor HP terdaftar E-Wallet kamu:</p>
+              <input type="tel" class="input-ewallet" placeholder="081234567890" required />
+            </div>
+          </div>
+
+          <button type="submit" class="btn-bayar-sekarang">
+            Bayar Sekarang
+          </button>
+        </form>
+      </div>
+    </div>
+    <!-- Modal Checkout / Pembayaran end -->
+
+    <!-- Login / Profile -->
+    <script>
+      function getCurrentUser() {
+        try {
+          return JSON.parse(localStorage.getItem("user")) || null;
+        } catch (error) {
+          return null;
+        }
+      }
+
+      function getUserDisplayName(user) {
+        if (!user) return "Pemain";
+        return user.username || user.name || user.nama || user.email?.split("@")[0] || "Pemain";
+      }
+
+      function getUserInitial(user) {
+        const name = getUserDisplayName(user).trim();
+        return name ? name.charAt(0).toUpperCase() : "P";
+      }
+
+      function renderAuthButton() {
+        const container = document.getElementById("auth-button-container");
+        if (!container) return;
+
+        const user = getCurrentUser();
+
+        if (!user) {
+          container.innerHTML = `
+            <a href="/login" class="auth-login-btn">Log In</a>
+          `;
+          return;
+        }
+
+        const name = getUserDisplayName(user);
+        const initial = getUserInitial(user);
+        const email = user.email || "Akun MainBadminton";
+
+        container.innerHTML = `
+          <button
+            type="button"
+            class="profile-trigger"
+            id="profileTrigger"
+            aria-expanded="false"
+            aria-haspopup="true"
+            onclick="toggleProfileMenu(event)"
+          >
+            <span class="profile-avatar">${escapeHtml(initial)}</span>
+            <span class="profile-name">Halo, ${escapeHtml(name)}</span>
+            <i data-feather="chevron-down" class="profile-chevron"></i>
+          </button>
+
+          <div class="profile-dropdown" id="profileDropdown">
+            <div class="profile-head">
+              <span class="profile-avatar">${escapeHtml(initial)}</span>
+              <div class="profile-head-text">
+                <strong>${escapeHtml(name)}</strong>
+                <small>${escapeHtml(email)}</small>
+              </div>
+            </div>
+
+            <a href="/profil" class="profile-menu-item">
+              <i data-feather="user"></i>
+              <span>Profil Saya</span>
+            </a>
+
+            <a href="/riwayat-booking" class="profile-menu-item">
+              <i data-feather="calendar"></i>
+              <span>Riwayat Booking</span>
+            </a>
+
+            <a href="/pengaturan" class="profile-menu-item">
+              <i data-feather="settings"></i>
+              <span>Pengaturan</span>
+            </a>
+
+            <div class="profile-menu-divider"></div>
+
+            <button type="button" class="profile-menu-item profile-logout" onclick="logoutUser()">
+              <i data-feather="log-out"></i>
+              <span>Log Out</span>
+            </button>
+          </div>
+        `;
+
+        if (window.feather) feather.replace();
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      function toggleProfileMenu(event) {
+        event.stopPropagation();
+
+        const trigger = document.getElementById("profileTrigger");
+        const dropdown = document.getElementById("profileDropdown");
+        if (!trigger || !dropdown) return;
+
+        const willOpen = !dropdown.classList.contains("show");
+        dropdown.classList.toggle("show", willOpen);
+        trigger.classList.toggle("open", willOpen);
+        trigger.setAttribute("aria-expanded", String(willOpen));
+      }
+
+      document.addEventListener("click", function (event) {
+        const container = document.getElementById("auth-button-container");
+        if (!container || container.contains(event.target)) return;
+
+        const dropdown = document.getElementById("profileDropdown");
+        const trigger = document.getElementById("profileTrigger");
+
+        if (dropdown) dropdown.classList.remove("show");
+        if (trigger) {
+          trigger.classList.remove("open");
+          trigger.setAttribute("aria-expanded", "false");
+        }
+      });
+
+      async function logoutUser() {
+        const button = document.querySelector(".profile-logout");
+
+        if (button) {
+          button.disabled = true;
+          button.innerHTML = `
+            <i data-feather="loader"></i>
+            <span>Keluar...</span>
+          `;
+          if (window.feather) feather.replace();
+        }
+
+        try {
+          await fetch("/api/logout", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" }
+          }).catch(() => {});
+        } finally {
+          localStorage.removeItem("user");
+          localStorage.removeItem("token");
+          window.location.href = "/login";
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        renderAuthButton();
+      });
     </script>
 
     <!-- My Javascript -->
