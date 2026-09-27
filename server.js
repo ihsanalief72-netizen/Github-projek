@@ -4,7 +4,9 @@ const cors = require('cors');
 const path = require('path');
 
 const app = express();
-const PORT = 3000;
+
+// 1. Gunakan Port Dinamis dari Railway (Fallback ke 3000 jika dijalankan lokal)
+const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
@@ -14,13 +16,16 @@ app.use(express.urlencoded({ extended: true }));
 // Sajikan file statis dari folder utama
 app.use(express.static(path.join(__dirname)));
 
-// Koneksi ke Database MySQL (Laragon)
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'mainbadminton_db'
-});
+// 2. Koneksi ke Database (Mendukung DATABASE_URL dari Railway / MySQL Cloud)
+const dbConfig = process.env.MYSQL_URL || process.env.DATABASE_URL || {
+    host: process.env.DB_HOST || 'localhost',
+    user: process.env.DB_USER || 'root',
+    password: process.env.DB_PASSWORD || '',
+    database: process.env.DB_NAME || 'mainbadminton_db',
+    port: process.env.DB_PORT || 3306
+};
+
+const db = mysql.createConnection(dbConfig);
 
 db.connect((err) => {
     if (err) {
@@ -66,7 +71,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Jalankan Server
-app.listen(PORT, () => {
-    console.log(`Server berjalan di http://localhost:${PORT}`);
+// 3. Jalankan Server pada 0.0.0.0 agar bisa dijangkau oleh Railway
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server berjalan di port ${PORT}`);
 });
